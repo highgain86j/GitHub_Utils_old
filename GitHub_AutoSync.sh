@@ -508,15 +508,12 @@ function reposprobe {
 
 
 function gitclone {
-	cd ${scr_loc}
-	cd ..
-	if [ ! -e ${clone_dir} ]
+	if [ ! -e ${scr_loc}/../${clone_dir} ]
 		then
-			mkdir ${clone_dir}
-			cd ${clone_dir}
-	elif [ ! -e ${clone_dir} ]
-		then
-			cd ${clone_dir}
+			mkdir ${scr_loc}/../${clone_dir}
+			cd ${scr_loc}/../${clone_dir}
+		else
+			cd ${scr_loc}/../${clone_dir}
 	fi
 	for clonelst in `ls ${scr_loc}/*.${sffxdir}/*_${sffxfork}`
 		do
@@ -605,6 +602,6 @@ inittmp
 
 repoprocess
 
-#gitupdate
+gitupdate
 
 cleanupf
