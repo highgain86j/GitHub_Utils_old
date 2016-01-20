@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-uauth=${1}
-pauth=${2}
+uauth=$1
+pauth=$2
 infauth=${uauth}:${pauth}
 
 scr_dir=$(cd $(dirname $0) && pwd)
@@ -50,7 +50,7 @@ yellow=33
 blue=34
 
 function cecho {
-	color=${1}
+	color=$1
 	shift
 	echo -e "\033[${color}m$@\033[m"
 }
@@ -93,8 +93,8 @@ function gitupdate {
 				echo "   Forking the repositories approved after the last session ( specified in "`cecho ${yellow} ${opfile}`" )."
 				for source in `cat ${tmp_0}`
 					do
-					sourceowner=`echo ${source} | awk -F, '{print ${1}}'`
-					sourcerepos=`echo ${source} | awk -F, '{print ${2}}'`
+					sourceowner=`echo ${source} | awk -F, '{print $1}'`
+					sourcerepos=`echo ${source} | awk -F, '{print $2}'`
 					echo "> Found;"
 					echo ${source}
 					echo "> "${sourceowner}"/"${sourcerepos}" successfully forked to "`curl -u ${infauth} -X POST https://api.github.com/repos/${sourceowner}/${sourcerepos}/forks 2> /dev/null | jq '.full_name' | sed -e s/\"//g`
@@ -105,7 +105,7 @@ function gitupdate {
 				echo "   Deleting the repositories approved after the last session ( specified in "`cecho ${yellow} ${opfile}`" )."
 				for deltar in `cat ${tmp_0}`
 					do
-					deltarrepos=`echo ${deltar} | awk -F, '{print ${2}}'`
+					deltarrepos=`echo ${deltar} | awk -F, '{print $2}'`
 					echo "> Found;"
 					echo ${deltar}
 					echo "> Issueing command;"
@@ -202,8 +202,8 @@ function reposprobe {
 		-e s/\}//g \
 		-e s/\ //g`
 
-		acntatr=`echo ${acnt_inf} | awk -F, '{print ${1}}'`
-		acntn=`echo ${acnt_inf} | awk -F, '{print ${2}}'`
+		acntatr=`echo ${acnt_inf} | awk -F, '{print $1}'`
+		acntn=`echo ${acnt_inf} | awk -F, '{print $2}'`
 
 		case ${acntatr} in
 			Organization)    acntt=orgs;;
@@ -284,10 +284,10 @@ function reposprobe {
 			| sed -e s/\"//g`
 
 			#Repository is fork?
-			reposinf_1=`echo ${reposinfo} | awk '{print ${1}}'`
+			reposinf_1=`echo ${reposinfo} | awk '{print $1}'`
 
 			#Repository name
-			reposinf_2=`echo ${reposinfo} | awk '{print ${2}}'`
+			reposinf_2=`echo ${reposinfo} | awk '{print $2}'`
 
 			#Repository owner (ID)
 			reposinf_3=`echo ${reposinfo} | awk '{print $3}'`
@@ -525,8 +525,8 @@ function gitclone {
 		echo "   Repositories in "`cecho ${yellow} ${clonelst}`" will be cloned or synced."
 #		for clonelne in `cat ${clonelst}`
 #			do
-#			var_1=`echo ${clonelne} | awk -F, '{print ${1}}'`
-#			var_2=`echo ${clonelne} | awk -F, '{print ${2}}'`
+#			var_1=`echo ${clonelne} | awk -F, '{print $1}'`
+#			var_2=`echo ${clonelne} | awk -F, '{print $2}'`
 #			var_3=`echo ${clonelne} | awk -F, '{print $3}'`
 #			if [ -e ${var_1} ]
 #				then
