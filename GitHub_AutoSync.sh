@@ -595,7 +595,7 @@ gitupdate
 
 reposprobe
 
-gitclone
+#gitclone
 
 inittmp
 
