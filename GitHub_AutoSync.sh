@@ -319,19 +319,19 @@ function reposprobe {
 
 							fi
 
-							reposlist=$reposfdir/${reposinf_6}_$sffxfork
+							reposlist=${scr_dir}/$reposfdir/${reposinf_6}_$sffxfork
 							reposstrg=${reposinf_6},${reposinf_2},${reposinf_7}
 
 						else
 
-							reposlist=$reposprv
+							reposlist=${scr_dir}/$reposprv
 							reposstrg=${reposinf_3},${reposinf_2},${reposinf_4}
 
 					fi
 
 				else
 
-					reposlist=$repossrc
+					reposlist=${scr_dir}/$repossrc
 					reposstrg=${reposinf_3},${reposinf_2},${reposinf_4}
 
 			fi
