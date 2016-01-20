@@ -505,6 +505,25 @@ function reposprobe {
 }
 
 
+<<<<<<< HEAD
+=======
+function gitclone {
+	if [ ! -e ${scr_dir}/../${clone_dir} ]
+		then
+			mkdir ${scr_dir}/../${clone_dir}
+			cd ${scr_dir}/../${clone_dir}
+		else
+			cd ${scr_dir}/../${clone_dir}
+	fi
+	for clonelst in `ls ${scr_dir}/*.${sffxdir}/*_${sffxfork}`
+		do
+		echo $clonelst" will be referred to as the list of repositories to be cloned and pulled."
+	done
+}
+
+
+
+>>>>>>> parent of e1d0515... Fixed variables
 function inittmp {
 	cp /dev/null $tmp_0
 	cp /dev/null $tmp_1
