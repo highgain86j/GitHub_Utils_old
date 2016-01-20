@@ -5,8 +5,8 @@ uauth=$1
 pauth=$2
 infauth=$uauth:$pauth
 
+scr_dir=$(cd $(dirname $0) && pwd)
 
-scr_dir=`dirname $0`
 cd $scr_dir
 
 clone_dir=GitHub
@@ -90,11 +90,11 @@ function gitupdate {
 
 		if [ $opmode = add ]
 			then
-				echo "Forking the repositories approved after the last session ( specified in "$opfile" )."
+				echo "   Forking the repositories approved after the last session ( specified in "`cecho $yellow $opfile`" )."
 				for source in `cat $tmp_0`
 					do
 					sourceowner=`echo $source | awk -F, '{print $1}'`
-					sourcerepos=`echo $source | awk -F, '{print $2}'`
+					sourcerepos=`echo $source | awk -F, '{print $3}'`
 					echo "> Found;"
 					echo $source
 					echo "> "$sourceowner"/"$sourcerepos" successfully forked to "`curl -u $infauth -X POST https://api.github.com/repos/$sourceowner/$sourcerepos/forks 2> /dev/null | jq '.full_name' | sed -e s/\"//g`
@@ -102,7 +102,7 @@ function gitupdate {
 				echo ""
 		elif [ $opmode = del ]
 			then
-				echo "Deleting the repositories approved after the last session ( specified in "$opfile" )."
+				echo "   Deleting the repositories approved after the last session ( specified in "`cecho $yellow $opfile`" )."
 				for deltar in `cat $tmp_0`
 					do
 					deltarrepos=`echo $deltar | awk -F, '{print $2}'`
@@ -115,7 +115,7 @@ function gitupdate {
 		else
 			echo ""
 		fi
-		echo "Paused for 10sec"
+		echo "   (Paused for 10sec)"
 		sleep 10s
 		echo ""
 	done
@@ -244,15 +244,17 @@ function reposprobe {
 				acceptdel=${reposdir}/${acntn}_$sffxacceptdel
 				rejectdel=${reposdir}/${acntn}_$sffxrejectdel
 
+				cecho $green "### Checking for files... ###"
 				for touchfile in $repossrc $diffadd $acceptadd $rejectadd $diffdel $acceptdel $rejectdel 
 					do
 					if [ ! -e $touchfile ];
 						then
-							echo "Missing "$touchfile" - creating now."
+							echo "   Missing "`cecho $yellow $touchfile`" - creating now."
 							touch $touchfile
 
 					fi
 				done
+				echo ""
 
 
 			else
@@ -318,19 +320,19 @@ function reposprobe {
 							fi
 
 							reposlist=${scr_dir}/$reposfdir/${reposinf_6}_$sffxfork
-							reposstrg=${reposinf_6},${reposinf_2},${reposinf_7}
+							reposstrg=${reposinf_6},${reposinf_3},${reposinf_2},${reposinf_7}
 
 						else
 
 							reposlist=${scr_dir}/$reposprv
-							reposstrg=${reposinf_3},${reposinf_2},${reposinf_4}
+							reposstrg=${reposinf_3},${reposinf_3},${reposinf_2},${reposinf_4}
 
 					fi
 
 				else
 
 					reposlist=$repossrc
-					reposstrg=${reposinf_3},${reposinf_2},${reposinf_4}
+					reposstrg=${reposinf_3},${reposinf_3},${reposinf_2},${reposinf_4}
 
 			fi
 
@@ -510,19 +512,36 @@ function reposprobe {
 
 
 function gitclone {
+	cecho $green "### git clone / git sync ###"
 	if [ ! -e ${scr_dir}/../${clone_dir} ]
 		then
 			mkdir ${scr_dir}/../${clone_dir}
 			cd ${scr_dir}/../${clone_dir}
-			pwd
 		else
 			cd ${scr_dir}/../${clone_dir}
-			pwd
 	fi
 	for clonelst in `ls ${scr_dir}/*.${sffxdir}/*_${sffxfork}`
 		do
-		echo $clonelst" will be referred to as the list of repositories to be cloned and pulled."
+		echo "   Repositories in "`cecho $yellow $clonelst`" will be cloned or synced."
+#		for clonelne in `cat $clonelst`
+#			do
+#			var_1=`echo $clonelne | awk -F, '{print $1}'`
+#			var_2=`echo $clonelne | awk -F, '{print $2}'`
+#			var_3=`echo $clonelne | awk -F, '{print $3}'`
+#			if [ -e $var_1 ]
+#				then
+#					cd $var_1
+#				else
+#					mkdir $var_1
+#					cd $var_1
+#			fi
+#			
+#			cd ..
+#			cd ..
+#		done
 	done
+	echo ""
+	cd ${scr_dir}
 }
 
 
@@ -539,6 +558,7 @@ function inittmp {
 
 
 function repoprocess {
+	cecho $green "### Writing files... ###"
 	for opmode in add del
 		do
 		if [ $opmode = add ]
@@ -553,7 +573,7 @@ function repoprocess {
 			echo "Error."
 		fi
 		
-		echo `cecho $green "### Writing out to "`$wriout`cecho $green " ###"`
+		echo "   Writing out to "`cecho $yellow $wriout`
 		echo ""
 		#ls *.${sffxdir}/*_${suffix}
 		#echo ""
@@ -566,7 +586,7 @@ function repoprocess {
 			for entline in `cat $pendingf`
 				do
 				#echo $entline >> $wriout
-				cecho $yellow $entline
+				cecho $yellow "      "$entline
 			done
 		done
 		
@@ -579,16 +599,16 @@ function repoprocess {
 }
 
 
-#function cleanupf {
-#	cecho $green "### Cleaning up... ###"
-#	for garbage in `ls ${scr_dir}/*.$sffxdir/*.$repofext` $tmp_0 $tmp_1 $tmp_2 $tmp_3 $tmp_4 $tmp_5 $tmp_6 $tmp_7 $tmp_8 $tmp_9
-#		do
-#		echo "   Deleting;"
-#		cecho $yellow "      "$garbage
-#		rm $garbage
-#		echo ""
-#	done
-#}
+function cleanupf {
+	cecho $green "### Cleaning up... ###"
+	for garbage in `ls ${scr_dir}/*.$sffxdir/*.$repofext` $tmp_0 $tmp_1 $tmp_2 $tmp_3 $tmp_4 $tmp_5 $tmp_6 $tmp_7 $tmp_8 $tmp_9
+		do
+		echo "   Deleting;"
+		cecho $yellow "      "$garbage
+		rm $garbage
+		echo ""
+	done
+}
 
 description
 
@@ -598,10 +618,10 @@ gitupdate
 
 reposprobe
 
+gitclone
+
 inittmp
 
 repoprocess
-
-gitupdate
 
 cleanupf
