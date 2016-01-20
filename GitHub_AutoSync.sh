@@ -6,6 +6,7 @@ pauth=$2
 infauth=$uauth:$pauth
 
 scr_loc=`dirname $0`
+scr_dir=`pwd`/`dirname $0`
 cd $scr_loc
 
 acnt_prvt=$uauth
@@ -505,8 +506,6 @@ function reposprobe {
 }
 
 
-<<<<<<< HEAD
-=======
 function gitclone {
 	if [ ! -e ${scr_dir}/../${clone_dir} ]
 		then
@@ -522,8 +521,6 @@ function gitclone {
 }
 
 
-
->>>>>>> parent of e1d0515... Fixed variables
 function inittmp {
 	cp /dev/null $tmp_0
 	cp /dev/null $tmp_1
