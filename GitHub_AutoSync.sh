@@ -5,9 +5,8 @@ uauth=$1
 pauth=$2
 infauth=$uauth:$pauth
 
-scr_dir=`dirname $0`
 scr_loc=`pwd`/`dirname $0`
-cd $scr_dir
+cd $scr_loc
 
 acnt_prvt=$uauth
 #acnt_extl="kicad-jp"
