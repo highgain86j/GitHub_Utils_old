@@ -8,6 +8,7 @@ infauth=$uauth:$pauth
 scr_loc=`dirname $0`
 scr_dir=`pwd`/`dirname $0`
 cd $scr_loc
+pwd
 
 acnt_prvt=$uauth
 #acnt_extl="kicad-jp"
@@ -511,8 +512,10 @@ function gitclone {
 		then
 			mkdir ${scr_dir}/../${clone_dir}
 			cd ${scr_dir}/../${clone_dir}
+			pwd
 		else
 			cd ${scr_dir}/../${clone_dir}
+			pwd
 	fi
 	for clonelst in `ls ${scr_dir}/*.${sffxdir}/*_${sffxfork}`
 		do
