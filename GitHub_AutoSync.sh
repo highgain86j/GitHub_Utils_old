@@ -5,11 +5,9 @@ uauth=$1
 pauth=$2
 infauth=$uauth:$pauth
 
-scr_loc=`dirname $0`
-scr_dir=`pwd`/`dirname $0`
 
-cd $scr_loc
-pwd
+scr_dir=`dirname $0`
+cd $scr_dir
 
 clone_dir=GitHub
 
