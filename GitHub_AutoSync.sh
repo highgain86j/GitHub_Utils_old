@@ -331,7 +331,7 @@ function reposprobe {
 
 				else
 
-					reposlist=${scr_dir}/$repossrc
+					reposlist=$repossrc
 					reposstrg=${reposinf_3},${reposinf_2},${reposinf_4}
 
 			fi
