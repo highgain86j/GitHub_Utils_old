@@ -7,6 +7,7 @@ infauth=$uauth:$pauth
 
 scr_loc=`dirname $0`
 scr_dir=`pwd`/`dirname $0`
+
 cd $scr_loc
 pwd
 
@@ -41,8 +42,8 @@ sffxdir=repos.d
 
 penddir=pending.d
 
-addpendf=$penddir/fork_pending_$addflg.$repofext
-delpendf=$penddir/fork_pending_$delflg.$repofext
+addpendf=${scr_dir}/$penddir/fork_pending_$addflg.$repofext
+delpendf=${scr_dir}/$penddir/fork_pending_$delflg.$repofext
 
 
 red=31
@@ -226,7 +227,7 @@ function reposprobe {
 		if [ $acntn != $acnt_prvt ] ;
 			then
 
-				reposdir=$acntn.$sffxdir
+				reposdir=${scr_dir}/$acntn.$sffxdir
 
 				if [ ! -e $reposdir ];
 					then
@@ -235,15 +236,15 @@ function reposprobe {
 
 				fi
 
-				repossrc=$reposdir/${acntn}_$sffxsrc
+				repossrc=${scr_dir}/$reposdir/${acntn}_$sffxsrc
 				
-				diffadd=$reposdir/${acntn}_$sffxpendadd
-				acceptadd=$reposdir/${acntn}_$sffxacceptadd
-				rejectadd=$reposdir/${acntn}_$sffxrejectadd
+				diffadd=${scr_dir}/$reposdir/${acntn}_$sffxpendadd
+				acceptadd=${scr_dir}/$reposdir/${acntn}_$sffxacceptadd
+				rejectadd=${scr_dir}/$reposdir/${acntn}_$sffxrejectadd
 				
-				diffdel=$reposdir/${acntn}_$sffxpenddel
-				acceptdel=$reposdir/${acntn}_$sffxacceptdel
-				rejectdel=$reposdir/${acntn}_$sffxrejectdel
+				diffdel=${scr_dir}/$reposdir/${acntn}_$sffxpenddel
+				acceptdel=${scr_dir}/$reposdir/${acntn}_$sffxacceptdel
+				rejectdel=${scr_dir}/$reposdir/${acntn}_$sffxrejectdel
 
 				for touchfile in $repossrc $diffadd $acceptadd $rejectadd $diffdel $acceptdel $rejectdel 
 					do
@@ -351,12 +352,12 @@ function reposprobe {
 
 				echo ""
 				cecho $green "### Sorting files... ###"
-				if [ ! -e ${acntn}.${sffxdir}/${acntn}_$sffxfork ] ;
+				if [ ! -e ${scr_dir}/${acntn}.${sffxdir}/${acntn}_$sffxfork ] ;
 					then 
-						touch ${acntn}.${sffxdir}/${acntn}_$sffxfork
+						touch ${scr_dir}/${acntn}.${sffxdir}/${acntn}_$sffxfork
 				fi
 				
-				for reposfil in ${acntn}.${sffxdir}/${acntn}_$sffxsrc ${acntn}.${sffxdir}/${acntn}_$sffxfork
+				for reposfil in ${scr_dir}/${acntn}.${sffxdir}/${acntn}_$sffxsrc ${scr_dir}/${acntn}.${sffxdir}/${acntn}_$sffxfork
 					do
 					sort -r $reposfil > $tmp_0
 					cat $tmp_0 > $reposfil
@@ -395,7 +396,7 @@ function reposprobe {
 							line_2="   <<  Ignored (blacklisted)  >>"
 							line_3="   <<  Set to be forked on the next run  >>"
 							line_4="   <<  Added to pending list for forking to "${acnt_prvt}"  >>"
-							diff ${acntn}.${sffxdir}/${acntn}_$sffxsrc ${acntn}.${sffxdir}/${acntn}_$sffxfork | grep '^<' \
+							diff ${scr_dir}/${acntn}.${sffxdir}/${acntn}_$sffxsrc ${scr_dir}/${acntn}.${sffxdir}/${acntn}_$sffxfork | grep '^<' \
 							| sed -e "s/< //g" > $infile
 
 					elif [ $opmode = del ]
@@ -413,7 +414,7 @@ function reposprobe {
 							line_2="   <<  Ignored (blacklisted)  >>"
 							line_3="   <<  Set to be deleted on the next run  >>"
 							line_4="   <<  Added to pending list for deletion from "${acnt_prvt}"  >>"
-							diff ${acntn}.${sffxdir}/${acntn}_$sffxsrc ${acntn}.${sffxdir}/${acntn}_$sffxfork | grep '^>' \
+							diff ${scr_dir}/${acntn}.${sffxdir}/${acntn}_$sffxsrc ${scr_dir}/${acntn}.${sffxdir}/${acntn}_$sffxfork | grep '^>' \
 							| sed -e "s/> //g" > $infile
 					else
 						echo ""
@@ -562,7 +563,7 @@ function repoprocess {
 		#echo ""
 		cp /dev/null $wriout
 
-		for pendingf in `ls *.${sffxdir}/*_${suffix}`
+		for pendingf in `ls ${scr_dir}/*.${sffxdir}/*_${suffix}`
 			do
 			for entline in `cat $pendingf`
 				do
@@ -582,7 +583,7 @@ function repoprocess {
 
 #function cleanupf {
 #	cecho $green "### Cleaning up... ###"
-#	for garbage in `ls *.$sffxdir/*.$repofext` $tmp_0 $tmp_1 $tmp_2 $tmp_3 $tmp_4 $tmp_5 $tmp_6 $tmp_7 $tmp_8 $tmp_9
+#	for garbage in `ls ${scr_dir}/*.$sffxdir/*.$repofext` $tmp_0 $tmp_1 $tmp_2 $tmp_3 $tmp_4 $tmp_5 $tmp_6 $tmp_7 $tmp_8 $tmp_9
 #		do
 #		echo "   Deleting;"
 #		cecho $yellow "      "$garbage
