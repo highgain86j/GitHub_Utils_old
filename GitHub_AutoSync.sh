@@ -40,6 +40,7 @@ sffxrejectdel=$delflg.$rejectext
 sffxdir=repos.d
 
 penddir=pending.d
+
 addpendf=$penddir/fork_pending_$addflg.$repofext
 delpendf=$penddir/fork_pending_$delflg.$repofext
 
@@ -579,16 +580,16 @@ function repoprocess {
 }
 
 
-function cleanupf {
-	cecho $green "### Cleaning up... ###"
-	for garbage in `ls *.$sffxdir/*.$repofext` $tmp_0 $tmp_1 $tmp_2 $tmp_3 $tmp_4 $tmp_5 $tmp_6 $tmp_7 $tmp_8 $tmp_9
-		do
-		echo "   Deleting;"
-		cecho $yellow "      "$garbage
-		rm $garbage
-		echo ""
-	done
-}
+#function cleanupf {
+#	cecho $green "### Cleaning up... ###"
+#	for garbage in `ls *.$sffxdir/*.$repofext` $tmp_0 $tmp_1 $tmp_2 $tmp_3 $tmp_4 $tmp_5 $tmp_6 $tmp_7 $tmp_8 $tmp_9
+#		do
+#		echo "   Deleting;"
+#		cecho $yellow "      "$garbage
+#		rm $garbage
+#		echo ""
+#	done
+#}
 
 description
 
