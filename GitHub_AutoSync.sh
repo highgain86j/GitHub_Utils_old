@@ -94,7 +94,7 @@ function gitupdate {
 				for source in `cat $tmp_0`
 					do
 					sourceowner=`echo $source | awk -F, '{print $1}'`
-					sourcerepos=`echo $source | awk -F, '{print $3}'`
+					sourcerepos=`echo $source | awk -F, '{print $2}'`
 					echo "> Found;"
 					echo $source
 					echo "> "$sourceowner"/"$sourcerepos" successfully forked to "`curl -u $infauth -X POST https://api.github.com/repos/$sourceowner/$sourcerepos/forks 2> /dev/null | jq '.full_name' | sed -e s/\"//g`
@@ -320,19 +320,19 @@ function reposprobe {
 							fi
 
 							reposlist=${scr_dir}/$reposfdir/${reposinf_6}_$sffxfork
-							reposstrg=${reposinf_6},${reposinf_3},${reposinf_2},${reposinf_7}
+							reposstrg=${reposinf_6},${reposinf_2},${reposinf_7}
 
 						else
 
 							reposlist=${scr_dir}/$reposprv
-							reposstrg=${reposinf_3},${reposinf_3},${reposinf_2},${reposinf_4}
+							reposstrg=${reposinf_3},${reposinf_2},${reposinf_4}
 
 					fi
 
 				else
 
 					reposlist=$repossrc
-					reposstrg=${reposinf_3},${reposinf_3},${reposinf_2},${reposinf_4}
+					reposstrg=${reposinf_3},${reposinf_2},${reposinf_4}
 
 			fi
 
