@@ -236,15 +236,15 @@ function reposprobe {
 
 				fi
 
-				repossrc=${scr_dir}/$reposdir/${acntn}_$sffxsrc
+				repossrc=${reposdir}/${acntn}_$sffxsrc
 				
-				diffadd=${scr_dir}/$reposdir/${acntn}_$sffxpendadd
-				acceptadd=${scr_dir}/$reposdir/${acntn}_$sffxacceptadd
-				rejectadd=${scr_dir}/$reposdir/${acntn}_$sffxrejectadd
+				diffadd=${reposdir}/${acntn}_$sffxpendadd
+				acceptadd=${reposdir}/${acntn}_$sffxacceptadd
+				rejectadd=${reposdir}/${acntn}_$sffxrejectadd
 				
-				diffdel=${scr_dir}/$reposdir/${acntn}_$sffxpenddel
-				acceptdel=${scr_dir}/$reposdir/${acntn}_$sffxacceptdel
-				rejectdel=${scr_dir}/$reposdir/${acntn}_$sffxrejectdel
+				diffdel=${reposdir}/${acntn}_$sffxpenddel
+				acceptdel=${reposdir}/${acntn}_$sffxacceptdel
+				rejectdel=${reposdir}/${acntn}_$sffxrejectdel
 
 				for touchfile in $repossrc $diffadd $acceptadd $rejectadd $diffdel $acceptdel $rejectdel 
 					do
