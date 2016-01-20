@@ -413,13 +413,13 @@ function reposprobe {
 					else
 						echo ""
 					fi
-		echo "variables set"
-		echo "opmode is "$opmode
+		#echo "variables set"
+		#echo "opmode is "$opmode
 
 					cat $infile > $pndtmp
 					##
 
-		echo "processing blacklist - "$blsfile
+		#echo "processing blacklist - "$blsfile
 					cp /dev/null $blstmp
 					cp /dev/null $woktmp
 					for blsentry in `cat $blsfile`
@@ -428,16 +428,16 @@ function reposprobe {
 						cat $pndtmp | grep -v $blsentry | grep -v -e '^\s*#' -e '^\s*$' > $woktmp
 						cat $woktmp > $pndtmp
 					done
-		echo "blacklisted: "
-		cat $blstmp
-		echo ""
-		echo "listed-out: "
-		cat $pndtmp
-		echo ""
+		#echo "blacklisted: "
+		#cat $blstmp
+		#echo ""
+		#echo "listed-out: "
+		#cat $pndtmp
+		#echo ""
 
 
 
-		echo "processing whitelist - "$wlsfile
+		#echo "processing whitelist - "$wlsfile
 					cp /dev/null $wlstmp
 					cp /dev/null $woktmp
 					for wlsentry in `cat $wlsfile`
@@ -446,12 +446,12 @@ function reposprobe {
 						cat $pndtmp | grep -v $wlsentry | grep -v -e '^\s*#' -e '^\s*$' > $woktmp
 						cat $woktmp > $pndtmp
 					done
-		echo "whitelisted: "
-		cat $wlstmp
-		echo ""
-		echo "listed-out: "
-		cat $pndtmp
-		echo ""
+		#echo "whitelisted: "
+		#cat $wlstmp
+		#echo ""
+		#echo "listed-out: "
+		#cat $pndtmp
+		#echo ""
 					##
 
 					#cat $wlstmp >> $tpndfile
@@ -501,7 +501,6 @@ function reposprobe {
 			echo ""
 			echo ""
 			echo ""
-
 	done
 }
 
