@@ -2,3 +2,4 @@
 *.add
 *.del
 *.repos.d
+*.d
