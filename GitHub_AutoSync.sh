@@ -14,8 +14,6 @@ acnt_extl="kicad-jp KiCad"
 
 acnt_ofcl="$acnt_prvt $acnt_extl"
 
-clone_dir=GitHub
-
 filedate=`date +%Y%m%d`
 repofext=repos
 listfext=list
@@ -507,22 +505,6 @@ function reposprobe {
 }
 
 
-function gitclone {
-	if [ ! -e ${scr_dir}/../${clone_dir} ]
-		then
-			mkdir ${scr_dir}/../${clone_dir}
-			cd ${scr_dir}/../${clone_dir}
-		else
-			cd ${scr_dir}/../${clone_dir}
-	fi
-	for clonelst in `ls ${scr_dir}/*.${sffxdir}/*_${sffxfork}`
-		do
-		echo $clonelst" will be referred to as the list of repositories to be cloned and pulled."
-	done
-}
-
-
-
 function inittmp {
 	cp /dev/null $tmp_0
 	cp /dev/null $tmp_1
@@ -594,8 +576,6 @@ mktemps
 gitupdate
 
 reposprobe
-
-#gitclone
 
 inittmp
 
