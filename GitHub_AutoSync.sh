@@ -520,7 +520,7 @@ function gitclone {
 	fi
 	for clonelst in `ls ${scr_loc}/*.${sffxdir}/*_${sffxfork}`
 		do
-		echo $clonelst" will be referred to as the list of repositories to be cloned and pulled."
+		echo "   Repositories in "`cecho $yellow $clonelst`" will be cloned/pulled."
 	done
 	cd ${scr_loc}
 }
