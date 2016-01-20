@@ -545,7 +545,7 @@ function repoprocess {
 			for entline in `cat $pendingf`
 				do
 				#echo $entline >> $wriout
-				echo $entline
+				cecho $yellow $entline
 			done
 		done
 		
