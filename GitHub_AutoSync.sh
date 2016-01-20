@@ -10,6 +10,8 @@ scr_dir=`pwd`/`dirname $0`
 cd $scr_loc
 pwd
 
+clone_dir=GitHub
+
 acnt_prvt=$uauth
 #acnt_extl="kicad-jp"
 acnt_extl="kicad-jp KiCad"
