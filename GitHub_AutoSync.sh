@@ -508,18 +508,17 @@ function reposprobe {
 
 
 function gitclone {
-	if [ ! -e ${scr_loc}/../${clone_dir} ]
+	if [ ! -e ${scr_dir}/../${clone_dir} ]
 		then
-			mkdir ${scr_loc}/../${clone_dir}
-			cd ${scr_loc}/../${clone_dir}
+			mkdir ${scr_dir}/../${clone_dir}
+			cd ${scr_dir}/../${clone_dir}
 		else
-			cd ${scr_loc}/../${clone_dir}
+			cd ${scr_dir}/../${clone_dir}
 	fi
-	for clonelst in `ls ${scr_loc}/*.${sffxdir}/*_${sffxfork}`
+	for clonelst in `ls ${scr_dir}/*.${sffxdir}/*_${sffxfork}`
 		do
 		echo $clonelst" will be referred to as the list of repositories to be cloned and pulled."
 	done
-	cd ${scr_loc}
 }
 
 
