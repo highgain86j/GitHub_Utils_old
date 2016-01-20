@@ -15,6 +15,8 @@ acnt_extl="kicad-jp KiCad"
 
 acnt_ofcl="$acnt_prvt $acnt_extl"
 
+clone_dir=GitHub
+
 filedate=`date +%Y%m%d`
 repofext=repos
 listfext=list
@@ -506,7 +508,6 @@ function reposprobe {
 }
 
 
-<<<<<<< HEAD
 function gitclone {
 	cd ${scr_loc}
 	cd ..
@@ -527,8 +528,6 @@ function gitclone {
 
 
 
-=======
->>>>>>> parent of b72571f... Added gitclone function
 function inittmp {
 	cp /dev/null $tmp_0
 	cp /dev/null $tmp_1
@@ -601,11 +600,8 @@ gitupdate
 
 reposprobe
 
-<<<<<<< HEAD
 gitclone
 
-=======
->>>>>>> parent of b72571f... Added gitclone function
 inittmp
 
 repoprocess
