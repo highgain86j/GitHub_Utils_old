@@ -545,7 +545,7 @@ function repoprocess {
 			do
 			for entline in `cat $pendingf`
 				do
-				echo $entline >> $scr_loc/$wriout
+				#echo $entline >> $wriout
 				echo $entline
 			done
 		done
