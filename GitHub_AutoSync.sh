@@ -10,12 +10,15 @@ scr_dir=$(cd $(dirname $0) && pwd)
 cd ${scr_dir}
 
 clone_dir=GitHub
+clone_dir_full=${scr_dir}/../${clone_dir}
+
 
 acnt_prvt=${uauth}
-#acnt_extl="kicad-jp"
-acnt_extl="kicad-jp KiCad"
+acnt_extl="kicad-jp"
+#acnt_extl="kicad-jp KiCad"
 
 acnt_ofcl="${acnt_prvt} ${acnt_extl}"
+#acnt_ofcl="${acnt_extl}"
 
 filedate=`date +%Y%m%d`
 repofext=repos
@@ -513,35 +516,56 @@ function reposprobe {
 
 function gitclone {
 	cecho ${green} "### git clone / git sync ###"
-	if [ ! -e ${scr_dir}/../${clone_dir} ]
+	listall=`mktemp`
+	if [ ! -e ${clone_dir_full} ]
 		then
-			mkdir ${scr_dir}/../${clone_dir}
-			cd ${scr_dir}/../${clone_dir}
-		else
-			cd ${scr_dir}/../${clone_dir}
+			echo `cecho ${yellow} ${clone_dir_full}`" does not exist. Creating now."
+			mkdir ${clone_dir_full}
 	fi
-	for clonelst in `ls ${scr_dir}/*.${sffxdir}/*_${sffxfork}`
+	for clonelst in `ls ${scr_dir}/*.${sffxdir}/*_${sffxfork}` `ls ${scr_dir}/*.${sffxdir}/*_${sffxprvt}`
 		do
-		echo "   Repositories in "`cecho ${yellow} ${clonelst}`" will be cloned or synced."
-#		for clonelne in `cat ${clonelst}`
-#			do
-#			var_1=`echo ${clonelne} | awk -F, '{print $1}'`
-#			var_2=`echo ${clonelne} | awk -F, '{print $2}'`
-#			var_3=`echo ${clonelne} | awk -F, '{print $3}'`
-#			if [ -e ${var_1} ]
-#				then
-#					cd ${var_1}
-#				else
-#					mkdir ${var_1}
-#					cd ${var_1}
-#			fi
-#			
-#			cd ..
-#			cd ..
-#		done
+		cat ${clonelst} >> ${listall}
 	done
-	echo ""
-	cd ${scr_dir}
+	for clonelne in `cat ${listall}`
+		do
+		var_ownerid=`echo ${clonelne} | awk -F, '{print $1}'`
+		var_repname=`echo ${clonelne} | awk -F, '{print $2}'`
+		var_git_url=`echo ${clonelne} | awk -F, '{print $3}'`
+		git_url1="git://github.com/${uauth}/${var_repname}.git"
+		git_url2="${var_git_url}"
+		gitdir2=${clone_dir_full}/${var_ownerid}
+		if [ ! -e ${gitdir2} ]
+			then
+				mkdir ${gitdir2}				
+		fi
+		cd ${gitdir2}
+		if [ ! -e ${var_repname} ]
+			then
+				echo `git clone ${git_url1}`
+				if [ ! "${git_url1}" = "${git_url2}" ]
+					then
+						cd ${var_repname}
+						echo `git remote add upstream ${git_url2}`
+						cd ..
+				fi
+			else
+				if [ ! "${git_url1}" = "${git_url2}" ]
+					then
+						cd ${var_repname}
+						echo `git fetch upstream`
+						echo `git merge upstream/master`
+						cd ..
+					else
+						cd ${var_repname}
+						echo `git fetch`
+						echo `git merge`
+						cd ..
+				fi
+		fi
+	done
+	rm ${listall}
+echo ""
+cd ${scr_dir}
 }
 
 
