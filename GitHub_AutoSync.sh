@@ -557,6 +557,8 @@ function gitclone {
 						cd ${var_repname}
 						echo "git fetch for fork "`cecho ${yellow} ${var_repname}`
 						cecho ${yellow} `git fetch upstream`
+						echo "git checkout master "`cecho ${yellow} ${var_repname}`
+						cecho ${yellow} `git checkout master`
 						echo "git merge for fork "`cecho ${yellow} ${var_repname}`
 						cecho ${yellow} `git merge upstream/master`
 						echo "git push origin..."
@@ -569,6 +571,8 @@ function gitclone {
 						cecho ${yellow} `git fetch`
 						echo "git merge for private "`cecho ${yellow} ${var_repname}`
 						cecho ${yellow} `git merge`
+						echo "git push origin..."
+						cecho ${yellow} `git push origin master`
 						echo ""
 						cd ..
 				fi
