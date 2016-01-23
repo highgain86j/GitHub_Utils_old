@@ -541,24 +541,26 @@ function gitclone {
 		cd ${gitdir2}
 		if [ ! -e ${var_repname} ]
 			then
-				echo `git clone ${git_url1}`
+				echo "Cloning..."
+				cecho ${yellow} `git clone ${git_url1}`
 				if [ ! "${git_url1}" = "${git_url2}" ]
 					then
 						cd ${var_repname}
-						echo `git remote add upstream ${git_url2}`
+						echo "Setting up upstream..."
+						cecho ${yellow} `git remote add upstream ${git_url2}`
 						cd ..
 				fi
 			else
 				if [ ! "${git_url1}" = "${git_url2}" ]
 					then
 						cd ${var_repname}
-						echo `git fetch upstream`
-						echo `git merge upstream/master`
+						echo "git pull for fork"
+						cecho ${yellow} `git pull upstream`
 						cd ..
 					else
 						cd ${var_repname}
-						echo `git fetch`
-						echo `git merge`
+						echo "git pull for private"
+						cecho ${yellow} `git pull`
 						cd ..
 				fi
 		fi
