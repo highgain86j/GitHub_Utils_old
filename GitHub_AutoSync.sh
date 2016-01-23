@@ -541,8 +541,8 @@ function gitclone {
 		cd ${gitdir2}
 		if [ ! -e ${var_repname} ]
 			then
-				echo "Cloning..."
-				cecho ${yellow} `git clone ${git_url1}`
+				echo "Cloning "`cecho ${yellow} ${var_repname}`" ."
+				git clone ${git_url1}
 				if [ ! "${git_url1}" = "${git_url2}" ]
 					then
 						cd ${var_repname}
