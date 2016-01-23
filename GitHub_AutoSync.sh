@@ -14,8 +14,8 @@ clone_dir_full=${scr_dir}/../${clone_dir}
 
 
 acnt_prvt=${uauth}
-acnt_extl="kicad-jp"
-#acnt_extl="kicad-jp KiCad"
+#acnt_extl="kicad-jp"
+acnt_extl="kicad-jp KiCad"
 
 acnt_ofcl="${acnt_prvt} ${acnt_extl}"
 #acnt_ofcl="${acnt_extl}"
@@ -238,11 +238,11 @@ function reposprobe {
 				fi
 
 				repossrc=${reposdir}/${acntn}_${sffxsrc}
-				
+
 				diffadd=${reposdir}/${acntn}_${sffxpendadd}
 				acceptadd=${reposdir}/${acntn}_${sffxacceptadd}
 				rejectadd=${reposdir}/${acntn}_${sffxrejectadd}
-				
+
 				diffdel=${reposdir}/${acntn}_${sffxpenddel}
 				acceptdel=${reposdir}/${acntn}_${sffxacceptdel}
 				rejectdel=${reposdir}/${acntn}_${sffxrejectdel}
@@ -339,7 +339,7 @@ function reposprobe {
 
 			fi
 
-			
+
 			echo "   Found;"
 			cecho ${yellow} "      "${reposstrg}
 			echo "   Added to;"
@@ -359,7 +359,7 @@ function reposprobe {
 					then 
 						touch ${scr_dir}/${acntn}.${sffxdir}/${acntn}_${sffxfork}
 				fi
-				
+
 				for reposfil in ${scr_dir}/${acntn}.${sffxdir}/${acntn}_${sffxsrc} ${scr_dir}/${acntn}.${sffxdir}/${acntn}_${sffxfork}
 					do
 					sort -r ${reposfil} > ${tmp_0}
@@ -536,17 +536,17 @@ function gitclone {
 		gitdir2=${clone_dir_full}/${var_ownerid}
 		if [ ! -e ${gitdir2} ]
 			then
-				mkdir ${gitdir2}				
+				mkdir ${gitdir2}
 		fi
 		cd ${gitdir2}
 		if [ ! -e ${var_repname} ]
 			then
-				echo "Cloning "`cecho ${yellow} ${var_repname}`" ."
+				echo "Cloning "`cecho ${yellow} ${var_repname}`
 				git clone ${git_url1}
 				if [ ! "${git_url1}" = "${git_url2}" ]
 					then
 						cd ${var_repname}
-						echo "Setting up upstream for "${var_repname}
+						echo "Setting up upstream for "`cecho ${yellow} ${var_repname}`
 						cecho ${yellow} `git remote add upstream ${git_url2}`
 						echo ""
 						cd ..
@@ -555,17 +555,19 @@ function gitclone {
 				if [ ! "${git_url1}" = "${git_url2}" ]
 					then
 						cd ${var_repname}
-						echo "git fetch for fork "${var_repname}
+						echo "git fetch for fork "`cecho ${yellow} ${var_repname}`
 						cecho ${yellow} `git fetch upstream`
-						echo "git merge for fork "${var_repname}
+						echo "git merge for fork "`cecho ${yellow} ${var_repname}`
 						cecho ${yellow} `git merge upstream/master`
+						echo "git push origin..."
+						cecho ${yellow} `git push origin master`
 						echo ""
 						cd ..
 					else
 						cd ${var_repname}
-						echo "git fetch for private "${var_repname}
+						echo "git fetch for private "`cecho ${yellow} ${var_repname}`
 						cecho ${yellow} `git fetch`
-						echo "git merge for private "${var_repname}
+						echo "git merge for private "`cecho ${yellow} ${var_repname}`
 						cecho ${yellow} `git merge`
 						echo ""
 						cd ..
