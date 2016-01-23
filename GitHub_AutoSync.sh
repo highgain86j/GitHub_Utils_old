@@ -191,7 +191,7 @@ function reposprobe {
 		cp /dev/null ${tmp_7}
 		cp /dev/null ${tmp_8}
 		cp /dev/null ${tmp_9}
-		
+
 		acnt_inf=`curl -G https://api.github.com/search/users \
 		--data-urlencode q=${acnt} \
 		-H 'application/vnd.github.v3.text-match+json' 2> /dev/null \
@@ -607,7 +607,7 @@ function repoprocess {
 		else
 			echo "Error."
 		fi
-		
+
 		echo "   Writing out to "`cecho ${yellow} ${wriout}`
 		echo ""
 		#ls *.${sffxdir}/*_${suffix}
@@ -624,10 +624,10 @@ function repoprocess {
 				cecho ${yellow} "      "${entline}
 			done
 		done
-		
+
 		sort -r ${wriout} > ${tmp_0}
 		uniq ${tmp_0} > ${wriout}
-		
+
 		echo ""
 		echo ""
 	done
