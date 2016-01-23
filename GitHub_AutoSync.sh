@@ -555,7 +555,7 @@ function gitclone {
 					then
 						cd ${var_repname}
 						echo "git pull for fork"
-						cecho ${yellow} `git pull upstream`
+						cecho ${yellow} `git pull upstream/master`
 						cd ..
 					else
 						cd ${var_repname}
