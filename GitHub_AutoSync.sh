@@ -52,15 +52,28 @@ green=32
 yellow=33
 blue=34
 
-function cecho {
-	color=$1
-	shift
-	echo -e "\033[${color}m$@\033[m"
+function echo_red {
+	color=31
+	echo -e "\033[0;${color}m${1}\033[0;39m"
 }
 
+function echo_green {
+	color=32
+	echo -e "\033[0;${color}m${1}\033[0;39m"
+}
+
+function echo_yellow {
+	color=33
+	echo -e "\033[0;${color}m${1}\033[0;39m"
+}
+
+function echo_blue {
+	color=34
+	echo -e "\033[0;${color}m${1}\033[0;39m"
+}
 
 function gitupdate {
-	cecho ${green} "### Looking for repositories to be forked... ###"
+	echo_green "### Looking for repositories to be forked... ###"
 
 	for opmode in add del
 		do
@@ -93,7 +106,7 @@ function gitupdate {
 
 		if [ ${opmode} = add ]
 			then
-				echo "   Forking the repositories approved after the last session ( specified in "`cecho ${yellow} ${opfile}`" )."
+				echo "   Forking the repositories approved after the last session ( specified in "`echo_yellow ${opfile}`" )."
 				for source in `cat ${tmp_0}`
 					do
 					sourceowner=`echo ${source} | awk -F, '{print $1}'`
@@ -105,7 +118,7 @@ function gitupdate {
 				echo ""
 		elif [ ${opmode} = del ]
 			then
-				echo "   Deleting the repositories approved after the last session ( specified in "`cecho ${yellow} ${opfile}`" )."
+				echo "   Deleting the repositories approved after the last session ( specified in "`echo_yellow ${opfile}`" )."
 				for deltar in `cat ${tmp_0}`
 					do
 					deltarrepos=`echo ${deltar} | awk -F, '{print $2}'`
@@ -127,15 +140,15 @@ function gitupdate {
 
 function description {
 	clear
-	cecho ${green} "<<   What this script will do...   >>"
-	echo "   You are currently running this script as "`cecho ${yellow} ${acnt_prvt}`" on GitHub."
-	echo "   This script will first read the list of repositories under your account ("`cecho ${yellow} ${acnt_prvt}`") and they"
+	echo_green "<<   What this script will do...   >>"
+	echo "   You are currently running this script as "`echo_yellow ${acnt_prvt}`" on GitHub."
+	echo "   This script will first read the list of repositories under your account ("`echo_yellow ${acnt_prvt}`") and they"
 	echo "   will be cloned or pulled - hence bringing them locally to this host and/or keeping them up-to-date."
 	echo ""
 	echo "   You have also specified other GitHub Accounts as follows;"
 	for extacnt in `echo ${acnt_extl}`
 		do
-		cecho ${yellow} "      "${extacnt}
+		echo_yellow "      "${extacnt}
 	done
 	echo "   All repositories of these accounts - unless blacklisted - will be added to a Fork-pending list."
 	echo "   In that file, pending entries are commented-out, and uncommenting them will make them forked at"
@@ -213,9 +226,9 @@ function reposprobe {
 			User)    acntt=users;;
 		esac
 
-		cecho ${green} "### Probing the account type... ###"
-		echo "   Account type for "`cecho ${yellow} ${acntn}`" is "`cecho ${yellow} ${acntatr}`" ."
-		echo "   Repositories for "`cecho ${yellow} ${acntn}`" ("`cecho ${yellow} ${acntatr}`") should be found at "`cecho ${yellow} https://api.github.com/${acntt}/${acntn}`" and is as follows;" 
+		echo_green "### Probing the account type... ###"
+		echo "   Account type for "`echo_yellow ${acntn}`" is "`echo_yellow ${acntatr}`" ."
+		echo "   Repositories for "`echo_yellow ${acntn}`" ("`echo_yellow ${acntatr}`") should be found at "`echo_yellow https://api.github.com/${acntt}/${acntn}`" and is as follows;" 
 		echo "   (This process will take a while.)"
 		echo ""
 		echo ""
@@ -247,12 +260,12 @@ function reposprobe {
 				acceptdel=${reposdir}/${acntn}_${sffxacceptdel}
 				rejectdel=${reposdir}/${acntn}_${sffxrejectdel}
 
-				cecho ${green} "### Checking for files... ###"
+				echo_green "### Checking for files... ###"
 				for touchfile in ${repossrc} ${diffadd} ${acceptadd} ${rejectadd} ${diffdel} ${acceptdel} ${rejectdel} 
 					do
 					if [ ! -e ${touchfile} ];
 						then
-							echo "   Missing "`cecho ${yellow} ${touchfile}`" - creating now."
+							echo "   Missing "`echo_yellow ${touchfile}`" - creating now."
 							touch ${touchfile}
 
 					fi
@@ -277,7 +290,7 @@ function reposprobe {
 
 		fi
 
-		cecho ${green} "### Retrieving repository information... ###"
+		echo_green "### Retrieving repository information... ###"
 
 		for repos in `cat ${tmp_0}`
 			do
@@ -341,9 +354,9 @@ function reposprobe {
 
 
 			echo "   Found;"
-			cecho ${yellow} "      "${reposstrg}
+			echo_yellow "      "${reposstrg}
 			echo "   Added to;"
-			cecho ${yellow} "      "${reposlist}
+			echo_yellow "      "${reposlist}
 			echo ${reposstrg} >> ${reposlist}
 			echo ""
 			echo ""
@@ -354,7 +367,7 @@ function reposprobe {
 			then
 
 				echo ""
-				cecho ${green} "### Sorting files... ###"
+				echo_green "### Sorting files... ###"
 				if [ ! -e ${scr_dir}/${acntn}.${sffxdir}/${acntn}_${sffxfork} ] ;
 					then 
 						touch ${scr_dir}/${acntn}.${sffxdir}/${acntn}_${sffxfork}
@@ -365,7 +378,7 @@ function reposprobe {
 					sort -r ${reposfil} > ${tmp_0}
 					cat ${tmp_0} > ${reposfil}
 					echo "   Sorted;"
-					cecho ${yellow} "      "${reposfil}
+					echo_yellow "      "${reposfil}
 				done
 				echo ""
 				echo ""
@@ -381,7 +394,7 @@ function reposprobe {
 				cp /dev/null ${tmp_8}
 				cp /dev/null ${tmp_9}
 
-				cecho ${green} "### Summary ###"
+				echo_green "### Summary ###"
 				for opmode in add del
 					do
 					if [ ${opmode} = add ]
@@ -468,7 +481,7 @@ function reposprobe {
 					echo ${line_1}
 					for entry in `cat ${infile}`
 						do
-							cecho ${yellow} "      "${entry}
+							echo_yellow "      "${entry}
 					done
 
 					echo ""
@@ -476,14 +489,14 @@ function reposprobe {
 					echo ${line_2}
 					for entry in `cat ${blstmp}`
 						do
-							cecho ${yellow} "      "${entry}
+							echo_yellow "      "${entry}
 					done
 					echo ""
 
 					echo ${line_3}
 					for entry in `cat ${wlstmp}`
 						do
-							cecho ${yellow} "      "${entry}
+							echo_yellow "      "${entry}
 							echo ${entry} >> ${pndfile}
 					done
 					echo ""
@@ -491,7 +504,7 @@ function reposprobe {
 					echo ${line_4}
 					for entry in `cat ${pndtmp}`
 						do
-							cecho ${yellow} "      "${entry}
+							echo_yellow "      "${entry}
 							echo "#"${entry} >> ${pndfile}
 					done
 
@@ -515,12 +528,12 @@ function reposprobe {
 
 
 function gitclone {
-	cecho ${green} "### git clone / git sync ###"
+	echo_green "### git clone / git sync ###"
 	listall=`mktemp`
 	buffer=`mktemp`
 	if [ ! -e ${clone_dir_full} ]
 		then
-			echo `cecho ${yellow} ${clone_dir_full}`" does not exist. Creating now."
+			echo `echo_yellow ${clone_dir_full}`" does not exist. Creating now."
 			mkdir ${clone_dir_full}
 	fi
 	for clonelst in `ls ${scr_dir}/*.${sffxdir}/*_${sffxfork}` `ls ${scr_dir}/*.${sffxdir}/*_${sffxprvt}`
@@ -542,7 +555,7 @@ function gitclone {
 		cd ${gitdir2}
 		if [ ! -e ${var_repname} ]
 			then
-				echo "Cloning "`cecho ${yellow} ${var_repname}`
+				echo "Cloning "`echo_yellow ${var_repname}`
 				git clone ${git_url1}
 				if [ ! "${git_url1}" = "${git_url2}" ]
 					then
@@ -550,7 +563,7 @@ function gitclone {
 						echo "git remote add upstream "${git_url2}
 						git remote add upstream ${git_url2} > ${buffer}
 						while read line; do
-							`cecho ${yellow} ${line}`
+							`echo_yellow ${line}`
 						done < ${buffer}
 
 
@@ -564,34 +577,34 @@ function gitclone {
 						echo "git remote -v"
 						git remote -v > ${buffer}
 						while read line; do
-							`cecho ${yellow} ${line}`
+							`echo_yellow ${line}`
 						done < ${buffer}
 
 						echo "git fetch upstream"
 						git fetch upstream > ${buffer}
 						while read line; do
-							`cecho ${yellow} ${line}`
+							`echo_yellow ${line}`
 						done < ${buffer}
 
 
 						echo "git checkout master"
 						git checkout master > ${buffer}
 						while read line; do
-							`cecho ${yellow} ${line}`
+							`echo_yellow ${line}`
 						done < ${buffer}
 
 
 						echo "git merge"
 						git merge upstream/master > ${buffer}
 						while read line; do
-							`cecho ${yellow} ${line}`
+							`echo_yellow ${line}`
 						done < ${buffer}
 
 
 						echo "git push origin master"
 						git push origin master > ${buffer}
 						while read line; do
-							`cecho ${yellow} ${line}`
+							`echo_yellow ${line}`
 						done < ${buffer}
 
 
@@ -602,28 +615,28 @@ function gitclone {
 						echo "git remote -v"
 						git remote -v > ${buffer}
 						while read line; do
-							`cecho ${yellow} ${line}`
+							`echo_yellow ${line}`
 						done < ${buffer}
 
 
 						echo "git fetch"
 						git fetch > ${buffer}
 						while read line; do
-							`cecho ${yellow} ${line}`
+							`echo_yellow ${line}`
 						done < ${buffer}
 
 
 						echo "git merge"
 						git merge > ${buffer}
 						while read line; do
-							`cecho ${yellow} ${line}`
+							`echo_yellow ${line}`
 						done < ${buffer}
 
 
 						echo "git push origin master"
 						git push origin master > ${buffer}
 						while read line; do
-							`cecho ${yellow} ${line}`
+							`echo_yellow ${line}`
 						done < ${buffer}
 
 
@@ -652,7 +665,7 @@ function inittmp {
 
 
 function repoprocess {
-	cecho ${green} "### Writing files... ###"
+	echo_green "### Writing files... ###"
 	for opmode in add del
 		do
 		if [ ${opmode} = add ]
@@ -667,7 +680,7 @@ function repoprocess {
 			echo "Error."
 		fi
 
-		echo "   Writing out to "`cecho ${yellow} ${wriout}`
+		echo "   Writing out to "`echo_yellow ${wriout}`
 		echo ""
 		#ls *.${sffxdir}/*_${suffix}
 		#echo ""
@@ -680,7 +693,7 @@ function repoprocess {
 			for entline in `cat ${pendingf}`
 				do
 				#echo ${entline} >> ${wriout}
-				cecho ${yellow} "      "${entline}
+				echo_yellow "      "${entline}
 			done
 		done
 
@@ -694,11 +707,11 @@ function repoprocess {
 
 
 function cleanupf {
-	cecho ${green} "### Cleaning up... ###"
+	echo_green "### Cleaning up... ###"
 	for garbage in `ls ${scr_dir}/*.${sffxdir}/*.${repofext}` ${tmp_0} ${tmp_1} ${tmp_2} ${tmp_3} ${tmp_4} ${tmp_5} ${tmp_6} ${tmp_7} ${tmp_8} ${tmp_9}
 		do
 		echo "   Deleting;"
-		cecho ${yellow} "      "${garbage}
+		echo_yellow "      "${garbage}
 		rm ${garbage}
 		echo ""
 	done
