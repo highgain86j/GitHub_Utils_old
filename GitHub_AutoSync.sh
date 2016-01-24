@@ -562,9 +562,9 @@ function gitclone {
 						cd ${var_repname}
 						echo_blue "git remote add upstream "${git_url2}
 						git remote add upstream ${git_url2}
-						
-							
-						
+
+
+
 
 
 						echo_blue ""
@@ -576,36 +576,36 @@ function gitclone {
 						cd ${var_repname}
 						echo_blue "git remote -v"
 						git remote -v
-						
-							
-						
+
+
+
 
 						echo_blue "git fetch upstream"
 						git fetch upstream
-						
-							
-						
+
+
+
 
 
 						echo_blue "git checkout master"
 						git checkout master
-						
-							
-						
+
+
+
 
 
 						echo_blue "git merge"
 						git merge upstream/master
-						
-							
-						
+
+
+
 
 
 						echo_blue "git push origin master"
 						git push origin master
-						
-							
-						
+
+
+
 
 
 						echo_blue ""
@@ -614,30 +614,30 @@ function gitclone {
 						cd ${var_repname}
 						echo_blue "git remote -v"
 						git remote -v
-						
-							
-						
+
+
+
 
 
 						echo_blue "git fetch"
 						git fetch
-						
-							
-						
+
+
+
 
 
 						echo_blue "git merge"
-						
-						
-							
-						
+
+
+
+
 
 
 						echo_blue "git push origin master"
 						git push origin master
-						
-							
-						
+
+
+
 
 
 						echo ""
