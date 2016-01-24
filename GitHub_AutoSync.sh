@@ -560,84 +560,84 @@ function gitclone {
 				if [ ! "${git_url1}" = "${git_url2}" ]
 					then
 						cd ${var_repname}
-						echo "git remote add upstream "${git_url2}
-						git remote add upstream ${git_url2} > ${buffer}
-						while read line; do
-							echo_yellow ${line}
-						done < ${buffer}
+						echo_blue "git remote add upstream "${git_url2}
+						git remote add upstream ${git_url2}
+						
+							
+						
 
 
-						echo ""
+						echo_blue ""
 						cd ..
 				fi
 			else
 				if [ ! "${git_url1}" = "${git_url2}" ]
 					then
 						cd ${var_repname}
-						echo "git remote -v"
-						git remote -v > ${buffer}
-						while read line; do
-							echo_yellow ${line}
-						done < ${buffer}
+						echo_blue "git remote -v"
+						git remote -v
+						
+							
+						
 
-						echo "git fetch upstream"
-						git fetch upstream > ${buffer}
-						while read line; do
-							echo_yellow ${line}
-						done < ${buffer}
-
-
-						echo "git checkout master"
-						git checkout master > ${buffer}
-						while read line; do
-							echo_yellow ${line}
-						done < ${buffer}
+						echo_blue "git fetch upstream"
+						git fetch upstream
+						
+							
+						
 
 
-						echo "git merge"
-						git merge upstream/master > ${buffer}
-						while read line; do
-							echo_yellow ${line}
-						done < ${buffer}
+						echo_blue "git checkout master"
+						git checkout master
+						
+							
+						
 
 
-						echo "git push origin master"
-						git push origin master > ${buffer}
-						while read line; do
-							echo_yellow ${line}
-						done < ${buffer}
+						echo_blue "git merge"
+						git merge upstream/master
+						
+							
+						
 
 
-						echo ""
+						echo_blue "git push origin master"
+						git push origin master
+						
+							
+						
+
+
+						echo_blue ""
 						cd ..
 					else
 						cd ${var_repname}
-						echo "git remote -v"
-						git remote -v > ${buffer}
-						while read line; do
-							echo_yellow ${line}
-						done < ${buffer}
+						echo_blue "git remote -v"
+						git remote -v
+						
+							
+						
 
 
-						echo "git fetch"
-						git fetch > ${buffer}
-						while read line; do
-							echo_yellow ${line}
-						done < ${buffer}
+						echo_blue "git fetch"
+						git fetch
+						
+							
+						
 
 
-						echo "git merge"
-						git merge > ${buffer}
-						while read line; do
-							echo_yellow ${line}
-						done < ${buffer}
+						echo_blue "git merge"
+						
+						
+							
+						
 
 
-						echo "git push origin master"
-						git push origin master > ${buffer}
-						while read line; do
-							echo_yellow ${line}
-						done < ${buffer}
+						echo_blue "git push origin master"
+						git push origin master
+						
+							
+						
 
 
 						echo ""
