@@ -283,7 +283,7 @@ function reposprobe {
 			do
 
 			reposinfo=`curl -u ${infauth} -G https://api.github.com/repos/${acntn}/${repos} 2> /dev/null \
-			| jq '.fork, .name, .owner.login, .clone_url, .parent.name, .parent.owner.login, .parent.clone_url' \
+			| jq '.fork, .name, .owner.login, .ssh_url, .parent.name, .parent.owner.login, .parent.ssh_url' \
 			| sed -e s/\"//g`
 
 			#Repository is fork?
@@ -531,7 +531,7 @@ function gitclone {
 		var_ownerid=`echo ${clonelne} | awk -F, '{print $1}'`
 		var_repname=`echo ${clonelne} | awk -F, '{print $2}'`
 		var_git_url=`echo ${clonelne} | awk -F, '{print $3}'`
-		git_url1="git://github.com/${uauth}/${var_repname}.git"
+		git_url1="git@github.com:${uauth}/${var_repname}.git"
 		git_url2="${var_git_url}"
 		gitdir2=${clone_dir_full}/${var_ownerid}
 		if [ ! -e ${gitdir2} ]
