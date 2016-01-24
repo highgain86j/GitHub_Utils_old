@@ -563,7 +563,7 @@ function gitclone {
 						echo "git remote add upstream "${git_url2}
 						git remote add upstream ${git_url2} > ${buffer}
 						while read line; do
-							`echo_yellow ${line}`
+							echo_yellow ${line}
 						done < ${buffer}
 
 
@@ -577,34 +577,34 @@ function gitclone {
 						echo "git remote -v"
 						git remote -v > ${buffer}
 						while read line; do
-							`echo_yellow ${line}`
+							echo_yellow ${line}
 						done < ${buffer}
 
 						echo "git fetch upstream"
 						git fetch upstream > ${buffer}
 						while read line; do
-							`echo_yellow ${line}`
+							echo_yellow ${line}
 						done < ${buffer}
 
 
 						echo "git checkout master"
 						git checkout master > ${buffer}
 						while read line; do
-							`echo_yellow ${line}`
+							echo_yellow ${line}
 						done < ${buffer}
 
 
 						echo "git merge"
 						git merge upstream/master > ${buffer}
 						while read line; do
-							`echo_yellow ${line}`
+							echo_yellow ${line}
 						done < ${buffer}
 
 
 						echo "git push origin master"
 						git push origin master > ${buffer}
 						while read line; do
-							`echo_yellow ${line}`
+							echo_yellow ${line}
 						done < ${buffer}
 
 
@@ -615,28 +615,28 @@ function gitclone {
 						echo "git remote -v"
 						git remote -v > ${buffer}
 						while read line; do
-							`echo_yellow ${line}`
+							echo_yellow ${line}
 						done < ${buffer}
 
 
 						echo "git fetch"
 						git fetch > ${buffer}
 						while read line; do
-							`echo_yellow ${line}`
+							echo_yellow ${line}
 						done < ${buffer}
 
 
 						echo "git merge"
 						git merge > ${buffer}
 						while read line; do
-							`echo_yellow ${line}`
+							echo_yellow ${line}
 						done < ${buffer}
 
 
 						echo "git push origin master"
 						git push origin master > ${buffer}
 						while read line; do
-							`echo_yellow ${line}`
+							echo_yellow ${line}
 						done < ${buffer}
 
 
