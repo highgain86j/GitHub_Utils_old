@@ -548,7 +548,12 @@ function gitclone {
 					then
 						cd ${var_repname}
 						echo "Setting up upstream for "`cecho ${yellow} ${var_repname}`
-						cecho ${yellow} `git remote add upstream ${git_url2}`
+						git remote add upstream ${git_url2} > ${buffer}
+						while read line; do
+							echo ${line}
+						done < ${buffer}
+
+
 						echo ""
 						cd ..
 				fi
@@ -556,28 +561,72 @@ function gitclone {
 				if [ ! "${git_url1}" = "${git_url2}" ]
 					then
 						cd ${var_repname}
-						echo "git remote -v "`cecho ${yellow} ${var_repname}`
-						cecho ${yellow} `git remote -v`
-						echo "git fetch for fork "`cecho ${yellow} ${var_repname}`
-						cecho ${yellow} `git fetch upstream`
-						echo "git checkout master "`cecho ${yellow} ${var_repname}`
-						cecho ${yellow} `git checkout master`
-						echo "git merge for fork "`cecho ${yellow} ${var_repname}`
-						cecho ${yellow} `git merge upstream/master`
-						echo "git push origin master"`cecho ${yellow} ${var_repname}`
-						cecho ${yellow} `git push origin master`
+						echo "git remote -v "${var_repname}
+						git remote -v > ${buffer}
+						while read line; do
+							echo ${line}
+						done < ${buffer}
+
+						echo "git fetch for fork "${var_repname}
+						git fetch upstream > ${buffer}
+						while read line; do
+							echo ${line}
+						done < ${buffer}
+
+
+						echo "git checkout master "${var_repname}
+						git checkout master > ${buffer}
+						while read line; do
+							echo ${line}
+						done < ${buffer}
+
+
+						echo "git merge for fork "${var_repname}
+						git merge upstream/master > ${buffer}
+						while read line; do
+							echo ${line}
+						done < ${buffer}
+
+
+						echo "git push origin master"${var_repname}
+						git push origin master > ${buffer}
+						while read line; do
+							echo ${line}
+						done < ${buffer}
+
+
 						echo ""
 						cd ..
 					else
 						cd ${var_repname}
-						echo "git remote -v "`cecho ${yellow} ${var_repname}`
-						cecho ${yellow} `git remote -v`
-						echo "git fetch for private "`cecho ${yellow} ${var_repname}`
-						cecho ${yellow} `git fetch`
-						echo "git merge for private "`cecho ${yellow} ${var_repname}`
-						cecho ${yellow} `git merge`
-						echo "git push origin master"`cecho ${yellow} ${var_repname}`
-						cecho ${yellow} `git push origin master`
+						echo "git remote -v "${var_repname}
+						git remote -v > ${buffer}
+						while read line; do
+							echo ${line}
+						done < ${buffer}
+
+
+						echo "git fetch for private "${var_repname}
+						git fetch > ${buffer}
+						while read line; do
+							echo ${line}
+						done < ${buffer}
+
+
+						echo "git merge for private "${var_repname}
+						git merge > ${buffer}
+						while read line; do
+							echo ${line}
+						done < ${buffer}
+
+
+						echo "git push origin master"${var_repname}
+						git push origin master > ${buffer}
+						while read line; do
+							echo ${line}
+						done < ${buffer}
+
+
 						echo ""
 						cd ..
 				fi
