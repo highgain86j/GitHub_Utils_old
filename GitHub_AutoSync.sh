@@ -517,6 +517,7 @@ function reposprobe {
 function gitclone {
 	cecho ${green} "### git clone / git sync ###"
 	listall=`mktemp`
+	buffer=`mktemp`
 	if [ ! -e ${clone_dir_full} ]
 		then
 			echo `cecho ${yellow} ${clone_dir_full}`" does not exist. Creating now."
@@ -555,23 +556,27 @@ function gitclone {
 				if [ ! "${git_url1}" = "${git_url2}" ]
 					then
 						cd ${var_repname}
+						echo "git remote -v "`cecho ${yellow} ${var_repname}`
+						cecho ${yellow} `git remote -v`
 						echo "git fetch for fork "`cecho ${yellow} ${var_repname}`
 						cecho ${yellow} `git fetch upstream`
 						echo "git checkout master "`cecho ${yellow} ${var_repname}`
 						cecho ${yellow} `git checkout master`
 						echo "git merge for fork "`cecho ${yellow} ${var_repname}`
 						cecho ${yellow} `git merge upstream/master`
-						echo "git push origin..."
+						echo "git push origin master"`cecho ${yellow} ${var_repname}`
 						cecho ${yellow} `git push origin master`
 						echo ""
 						cd ..
 					else
 						cd ${var_repname}
+						echo "git remote -v "`cecho ${yellow} ${var_repname}`
+						cecho ${yellow} `git remote -v`
 						echo "git fetch for private "`cecho ${yellow} ${var_repname}`
 						cecho ${yellow} `git fetch`
 						echo "git merge for private "`cecho ${yellow} ${var_repname}`
 						cecho ${yellow} `git merge`
-						echo "git push origin..."
+						echo "git push origin master"`cecho ${yellow} ${var_repname}`
 						cecho ${yellow} `git push origin master`
 						echo ""
 						cd ..
@@ -579,6 +584,7 @@ function gitclone {
 		fi
 	done
 	rm ${listall}
+	rm ${buffer}
 echo ""
 cd ${scr_dir}
 }
