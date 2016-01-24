@@ -51,6 +51,7 @@ red=31
 green=32
 yellow=33
 blue=34
+cyan=36
 
 function cecho {
 	color=$1
@@ -547,10 +548,10 @@ function gitclone {
 				if [ ! "${git_url1}" = "${git_url2}" ]
 					then
 						cd ${var_repname}
-						echo "Setting up upstream for "`cecho ${yellow} ${var_repname}`
+						echo "git remote add upstream "${git_url2}
 						git remote add upstream ${git_url2} > ${buffer}
 						while read line; do
-							echo ${line}
+							`cecho ${cyan} ${line}`
 						done < ${buffer}
 
 
@@ -561,37 +562,37 @@ function gitclone {
 				if [ ! "${git_url1}" = "${git_url2}" ]
 					then
 						cd ${var_repname}
-						echo "git remote -v "${var_repname}
+						echo "git remote -v"
 						git remote -v > ${buffer}
 						while read line; do
-							echo ${line}
+							`cecho ${cyan} ${line}`
 						done < ${buffer}
 
-						echo "git fetch for fork "${var_repname}
+						echo "git fetch upstream"
 						git fetch upstream > ${buffer}
 						while read line; do
-							echo ${line}
+							`cecho ${cyan} ${line}`
 						done < ${buffer}
 
 
-						echo "git checkout master "${var_repname}
+						echo "git checkout master"
 						git checkout master > ${buffer}
 						while read line; do
-							echo ${line}
+							`cecho ${cyan} ${line}`
 						done < ${buffer}
 
 
-						echo "git merge for fork "${var_repname}
+						echo "git merge"
 						git merge upstream/master > ${buffer}
 						while read line; do
-							echo ${line}
+							`cecho ${cyan} ${line}`
 						done < ${buffer}
 
 
-						echo "git push origin master"${var_repname}
+						echo "git push origin master"
 						git push origin master > ${buffer}
 						while read line; do
-							echo ${line}
+							`cecho ${cyan} ${line}`
 						done < ${buffer}
 
 
@@ -599,31 +600,31 @@ function gitclone {
 						cd ..
 					else
 						cd ${var_repname}
-						echo "git remote -v "${var_repname}
+						echo "git remote -v"
 						git remote -v > ${buffer}
 						while read line; do
-							echo ${line}
+							`cecho ${cyan} ${line}`
 						done < ${buffer}
 
 
-						echo "git fetch for private "${var_repname}
+						echo "git fetch"
 						git fetch > ${buffer}
 						while read line; do
-							echo ${line}
+							`cecho ${cyan} ${line}`
 						done < ${buffer}
 
 
-						echo "git merge for private "${var_repname}
+						echo "git merge"
 						git merge > ${buffer}
 						while read line; do
-							echo ${line}
+							`cecho ${cyan} ${line}`
 						done < ${buffer}
 
 
-						echo "git push origin master"${var_repname}
+						echo "git push origin master"
 						git push origin master > ${buffer}
 						while read line; do
-							echo ${line}
+							`cecho ${cyan} ${line}`
 						done < ${buffer}
 
 
