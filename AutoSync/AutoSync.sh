@@ -7,11 +7,15 @@ infauth=${uauth}:${pauth}
 
 scr_dir=$(cd $(dirname $0) && pwd)
 
-cd ${scr_dir}
-
 #clone_dir=GitHub
 #clone_dir_full=${scr_dir}/../${clone_dir}
 clone_dir_full=`pwd`
+echo ${clone_dir_full}
+#sleep 10s
+
+
+cd ${scr_dir}
+
 
 
 acnt_prvt=${uauth}
