@@ -159,7 +159,7 @@ function description {
 	echo "   hence keeping both local and GitHub repositories up-to-date."
 	echo "   This script is intended to be run periodically (once a day is ideal) by task schedulers like cron."
 	echo ""
-	echo "   This in intended to be run in bash, and assumes that you have access to commands like jq, curl, sed,"
+	echo "   This script is intended to be run in bash, and assumes that you have access to commands like jq, curl, sed,"
 	echo "   awk, grep, cat, sort and uniq - of which all except jq should be already available on most Linux distributions."
 	echo ""
 	echo "   Have fun!"
