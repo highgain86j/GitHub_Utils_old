@@ -72,6 +72,44 @@ function echo_blue {
 	echo -e "\033[0;${color}m${1}\033[0;39m"
 }
 
+
+
+
+function prereq {
+	echo_green "### Checking for the installation of required commands... ###"
+	requisites=jq,cat,git,awk,sed,echo,curl
+	for prereq_com in `echo ${requisites} | sed -e "s/,/ /g"`
+		do
+		com_bin=`which ${prereq_com}`
+		if [ -z ${com_bin} ];then
+			echo ${prereq_com}" is missing! Please install. "`echo_red "(Warn)"`
+			echo "On RPM-based distros (e.g. RedHat, Fedora, CentOS, etc...), issue - as a super-user;"
+			echo_yellow "yum install "${prereq_com}
+			echo "On APT-based distros (e.g. Debian, Ubuntu, etc...), issue - as a super-user;"
+			echo_yellow "apt-get install "${prereq_com}
+			echo "On other distros, please refer to appropriate documentations on installing commands - OR you should already know. :P"
+		else
+			echo ${prereq_com}" is installed and available! "`echo_green "(Good)"`
+		fi
+	done
+	echo "Paused for 10sec"
+	sleep 10s
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function gitupdate {
 	echo_green "### Looking for repositories to be forked... ###"
 
@@ -209,22 +247,40 @@ function reposprobe {
 		--data-urlencode q=${acnt} \
 		-H 'application/vnd.github.v3.text-match+json' 2> /dev/null \
 		| jq '.items[0] | {type, login}' \
-		| sed ':loop; N; $!b loop; ;s/\n//g' \
-		| sed -e s/\login//g \
-		-e s/\type//g \
-		-e s/\"//g \
-		-e s/\://g \
-		-e s/\{//g \
-		-e s/\}//g \
-		-e s/\ //g`
+		| egrep -v '\{|\}' \
+		| sed \
+		-e "s/ //g" \
+		-e "s/,/ /g" \
+		-e 's/"//g'`
+		acnt_inf=`echo ${acnt_inf}`
+		echo ${acnt_inf}
+		for acnt_info in ${acnt_inf}
+			do
+			echo "Processing the string given as: "${acnt_info}
+			det_login=`echo ${acnt_info} | egrep -v type | egrep login`
+			det_type=`echo ${acnt_info} | egrep -v login | egrep type`
+			if [ -n "${det_login}" ];then
+				acntn=`echo ${det_login} | awk -F':' '{print $2}'`
+				echo "Account name determined as "${acntn}
+			else
+				echo "Account name is not yet set."
+			fi
+			if [ -n "${det_type}" ];then
+				acntatr=`echo ${det_type} | awk -F':' '{print $2}'`
+				case ${acntatr} in
+					Organization)    acntt=orgs;;
+					User)    acntt=users;;
+				esac
+				echo "Account type determined as "${acntatr}
+				echo "Account's prefix determined as "${acntt}
+			else
+				echo "Account type is not yet set."
+			fi
+		done
 
-		acntatr=`echo ${acnt_inf} | awk -F, '{print $1}'`
-		acntn=`echo ${acnt_inf} | awk -F, '{print $2}'`
 
-		case ${acntatr} in
-			Organization)    acntt=orgs;;
-			User)    acntt=users;;
-		esac
+		echo "Account info. : "${acntn}", "${acntatr}", "${acntt}
+		sleep 10s
 
 		echo_green "### Probing the account type... ###"
 		echo "   Account type for "`echo_yellow ${acntn}`" is "`echo_yellow ${acntatr}`" ."
@@ -716,6 +772,8 @@ function cleanupf {
 		echo ""
 	done
 }
+
+prereq
 
 description
 
