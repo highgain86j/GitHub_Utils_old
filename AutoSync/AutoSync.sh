@@ -9,8 +9,9 @@ scr_dir=$(cd $(dirname $0) && pwd)
 
 cd ${scr_dir}
 
-clone_dir=GitHub
-clone_dir_full=${scr_dir}/../${clone_dir}
+#clone_dir=GitHub
+#clone_dir_full=${scr_dir}/../${clone_dir}
+clone_dir_full=`pwd`
 
 
 acnt_prvt=${uauth}
