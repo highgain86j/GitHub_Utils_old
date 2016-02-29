@@ -284,8 +284,10 @@ function reposprobe {
 
 		echo_green "### Probing the account type... ###"
 		echo "   Account type for "`echo_yellow ${acntn}`" is "`echo_yellow ${acntatr}`" ."
-		echo "   Repositories for "`echo_yellow ${acntn}`" ("`echo_yellow ${acntatr}`") should be found at "`echo_yellow https://api.github.com/${acntt}/${acntn}`" and is as follows;" 
-		echo "   (This process will take a while.)"
+		echo "   Repositories for "`echo_yellow ${acntn}`" ("`echo_yellow ${acntatr}`") should be found at "
+		echo_yellow "      "https://api.github.com/${acntt}/${acntn}
+		echo " and is as follows;" 
+		#echo "   (This process will take a while.)"
 		echo ""
 		echo ""
 
