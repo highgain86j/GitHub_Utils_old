@@ -1,0 +1,6 @@
+*.repos
+*.add
+*.del
+*.repos.d
+*.d
+*.pretty
